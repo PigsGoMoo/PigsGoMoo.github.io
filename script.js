@@ -1,4 +1,5 @@
 /* eslint-disable no-alert */
+console.log(`If you're reading this...this game is horribly unbalanced..`);
 // Buttons here
 const saveGameButton = document.getElementById('save');
 const resetGameButton = document.getElementById('resetGame');
