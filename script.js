@@ -715,7 +715,7 @@ let data = {};
     caffeineBoostData = {
       price: 5000,
     };
-  }
+    
   data = {
   coffee: 0,
   totalCPS: 0,
