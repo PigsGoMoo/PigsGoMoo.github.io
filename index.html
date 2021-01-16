@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Coffee Clicker</title>
+</head>
+
+<body>
+
+  <div class="column-container">
+    <div class="column" id="columnLeft">
+      <div class="container" id="reset-confirm">
+        <div>Are you sure you want to reset the game? This will erase all of your progress.</div>
+        <div>You cannot undo this once you confirm.</div>
+        <div id="resetConfirmPage">
+        <button id="resetConfirm">Yes, I'm sure!</button>
+        <button id='resetDeny'>Nevermind, take me back.</button>
+        </div>
+      </div>
+      <div class="container left" id="container_left">
+        <a id="changelog" href="/changelogs.html">Changelogs</a>
+        <div id="save_message" hidden>Your game has been saved!</div>
+        <div id = "save_buttons">
+          <button id="save">Save game</button>
+          <button id="resetGame">Reset game</button>
+        </div>
+        <div class="counter-container">Coffee: <span id="coffee_counter">0</span></div>
+        <div class="cps-container"><span id="cps">0</span> coffee/second</div>
+        <div id="big_coffee">☕️</div>
+        <div class="click-container">
+          <div>You currently gain <span id="per_click">1</span> coffee per click</div>
+          <button id="upgrade_clicks">Hire more workers!</button>
+          <div>It takes <span id="click-upgrade">200</span> coffee to hire a new worker.</div>
+        </div>
+        <div class="special-container" id="special_container">
+          <h3>Caffeine boost!</h3>
+          <div>Doubles all coffee output for 10 seconds. 5 minute cooldown.</div>
+          <div>Cost: <span id="boost_cost">5000</span> coffee</div>
+          <!-- Playing with the data- attribute that Ben taught us briefly -->
+          <button id="caffeine_boost" data-ready="true">Boost!</button>
+        </div>
+
+        <div id="boosting-ui">
+          <h1>Boosting! <span id="countdown"> </span></h1>
+        </div>
+
+      </div>
+    </div>
+    <div class="column" id="columnRight">
+      <div class="column-header">Coffee Producers</div>
+      <div class="container right" id="producer_container">
+      </div>
+    </div>
+    <script type="text/javascript" src="data.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
