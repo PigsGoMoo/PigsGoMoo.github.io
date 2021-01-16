@@ -706,16 +706,17 @@ let data = {};
     console.log(`Successfully loaded game!`);
   } catch (err) {
     console.log(`No load file detected. Starting from scratch`);
-
+    console.log(`Setting clickData`);
     clickData = {
       amount: 1,
       qty: 0,
       price: 200,
     };
+    console.log(`Setting caffeineBoostData`);
     caffeineBoostData = {
       price: 5000,
     };
-    
+    console.log(`Setting main data`);
   data = {
   coffee: 0,
   totalCPS: 0,
@@ -854,6 +855,7 @@ let data = {};
     },
   ],
 };
+  }
 
   // Hide the reset confirmation page initially
   const resetPage = document.getElementById('reset-confirm');
