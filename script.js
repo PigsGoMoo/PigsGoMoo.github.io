@@ -691,7 +691,7 @@ function tick(data) {
 // How does this check work? Node gives us access to a global variable /// called `process`, but this variable is undefined in the browser. So,
 // we can see if we're in node by checking to see if `process` exists.
 let data = {};
-if (typeof process === 'undefined') {
+
   // Get starting data from the window object
   // (This comes from data.js)
   // If there is a load file, load it. Otherwise, start new.
@@ -898,28 +898,4 @@ if (typeof process === 'undefined') {
 
   // Call the tick function passing in the data object once per second
   setInterval(() => tick(data), 1000);
-}
 
-// Meanwhile, if we aren't in a browser and are instead in node
-// we'll need to exports the code written here so we can import and
-// Don't worry if it's not clear exactly what's going on here;
-// We just need this to run the tests in Mocha.
-else if (process) {
-  module.exports = {
-    updateCoffeeView,
-    clickCoffee,
-    unlockProducers,
-    getUnlockedProducers,
-    makeDisplayNameFromId,
-    makeProducerDiv,
-    deleteAllChildNodes,
-    renderProducers,
-    updateCPSView,
-    getProducerById,
-    canAffordProducer,
-    updatePrice,
-    attemptToBuyProducer,
-    buyButtonClick,
-    tick,
-  };
-}
