@@ -181,9 +181,7 @@ function renderProducers(data) {
 
   // Need to delete previous children so I don't append all of them again
   if (producerParent.childNodes.length > 0) {
-    while (producerParent.firstChild) {
-      producerParent.removeChild(producerParent.firstChild);
-    }
+    deleteAllChildNodes(producerParent);
   }
 
   // Then .forEach, make div then append to producerParent
@@ -692,212 +690,211 @@ function tick(data) {
 // we can see if we're in node by checking to see if `process` exists.
 let data = {};
 
-  // Get starting data from the window object
-  // (This comes from data.js)
-  // If there is a load file, load it. Otherwise, start new.
-  try {
-    data = JSON.parse(localStorage.getItem('data'));
-    clickData = JSON.parse(localStorage.getItem('clickData'));
-    caffeineBoostData = JSON.parse(localStorage.getItem('caffeineBoostData'));
-    document.getElementById('per_click').innerText = clickData.amount;
-    document.getElementById('click-upgrade').innerText = clickData.price;
-    document.getElementById('boost_cost').innerText = caffeineBoostData.price;
-    updateUI(data);
-    console.log(`Successfully loaded game!`);
-  } catch (err) {
-    console.log(`No load file detected. Starting from scratch`);
-    console.log(`Setting clickData`);
-    clickData = {
-      amount: 1,
-      qty: 0,
-      price: 200,
-    };
-    console.log(`Setting caffeineBoostData`);
-    caffeineBoostData = {
-      price: 5000,
-    };
-    console.log(`Setting main data`);
+// Get starting data from the window object
+// (This comes from data.js)
+// If there is a load file, load it. Otherwise, start new.
+try {
+  data = JSON.parse(localStorage.getItem('data'));
+  clickData = JSON.parse(localStorage.getItem('clickData'));
+  caffeineBoostData = JSON.parse(localStorage.getItem('caffeineBoostData'));
+  document.getElementById('per_click').innerText = clickData.amount;
+  document.getElementById('click-upgrade').innerText = clickData.price;
+  document.getElementById('boost_cost').innerText = caffeineBoostData.price;
+  updateUI(data);
+  console.log(`Successfully loaded game!`);
+} catch (err) {
+  console.log(`No load file detected. Starting from scratch`);
+  console.log(`Setting clickData`);
+  clickData = {
+    amount: 1,
+    qty: 0,
+    price: 200,
+  };
+  console.log(`Setting caffeineBoostData`);
+  caffeineBoostData = {
+    price: 5000,
+  };
+  console.log(`Setting main data`);
   data = {
-  coffee: 0,
-  totalCPS: 0,
-  producers: [
-    {
-      id: 'chemex',
-      price: 10,
-      unlocked: false,
-      upgrade: 'Cleaner coffee machine',
-      upgradePrice: 100,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 1,
-      qty: 0,
-    },
-    {
-      id: 'french_press',
-      price: 50,
-      unlocked: false,
-      upgrade: 'Increased machine pressure',
-      upgradePrice: 500,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 2,
-      qty: 0,
-    },
-    {
-      id: 'mr._coffee',
-      price: 100,
-      unlocked: false,
-      upgrade: 'Use fresh mountain water',
-      upgradePrice: 1000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 5,
-      qty: 0,
-    },
-    {
-      id: 'ten_cup_urn',
-      price: 500,
-      unlocked: false,
-      upgrade: 'Upgraded coffee bean grinder',
-      upgradePrice: 5000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 10,
-      qty: 0,
-    },
-    {
-      id: 'espresso_machine',
-      price: 1000,
-      unlocked: false,
-      upgrade: 'Grind beans to order',
-      upgradePrice: 10000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 20,
-      qty: 0,
-    },
-    {
-      id: 'ten_gallon_urn',
-      price: 5000,
-      unlocked: false,
-      upgrade: 'Coffee made to order',
-      upgradePrice: 50000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 50,
-      qty: 0,
-    },
-    {
-      id: 'coffeeshop',
-      price: 10000,
-      unlocked: false,
-      upgrade: 'Extra shot of espresso',
-      upgradePrice: 100000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 75,
-      qty: 0,
-    },
-    {
-      id: 'coffee_factory',
-      price: 50000,
-      unlocked: false,
-      upgrade: 'Use freshest beans in existence',
-      upgradePrice: 500000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 100,
-      qty: 0,
-    },
-    {
-      id: 'coffee_fountain',
-      price: 100000,
-      unlocked: false,
-      upgrade: 'Genetically modified coffee beans',
-      upgradePrice: 1000000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 200,
-      qty: 0,
-    },
-    {
-      id: 'coffee_river',
-      price: 500000,
-      unlocked: false,
-      upgrade: 'Genetically modified water',
-      upgradePrice: 5000000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 500,
-      qty: 0,
-    },
-    {
-      id: 'coffee_ocean',
-      price: 1000000,
-      unlocked: false,
-      upgrade: 'Cat included with every purchase',
-      upgradePrice: 10000000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 1000,
-      qty: 0,
-    },
-    {
-      id: 'coffee_planet',
-      price: 5000000,
-      unlocked: false,
-      upgrade: 'Genetically modify everything about our coffee',
-      upgradePrice: 50000000,
-      upgradeUnlock: false,
-      upgradeQty: 0,
-      cps: 2000,
-      qty: 0,
-    },
-  ],
-};
-  }
+    coffee: 0,
+    totalCPS: 0,
+    producers: [
+      {
+        id: 'chemex',
+        price: 10,
+        unlocked: false,
+        upgrade: 'Cleaner coffee machine',
+        upgradePrice: 100,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 1,
+        qty: 0,
+      },
+      {
+        id: 'french_press',
+        price: 50,
+        unlocked: false,
+        upgrade: 'Increased machine pressure',
+        upgradePrice: 500,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 2,
+        qty: 0,
+      },
+      {
+        id: 'mr._coffee',
+        price: 100,
+        unlocked: false,
+        upgrade: 'Use fresh mountain water',
+        upgradePrice: 1000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 5,
+        qty: 0,
+      },
+      {
+        id: 'ten_cup_urn',
+        price: 500,
+        unlocked: false,
+        upgrade: 'Upgraded coffee bean grinder',
+        upgradePrice: 5000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 10,
+        qty: 0,
+      },
+      {
+        id: 'espresso_machine',
+        price: 1000,
+        unlocked: false,
+        upgrade: 'Grind beans to order',
+        upgradePrice: 10000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 20,
+        qty: 0,
+      },
+      {
+        id: 'ten_gallon_urn',
+        price: 5000,
+        unlocked: false,
+        upgrade: 'Coffee made to order',
+        upgradePrice: 50000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 50,
+        qty: 0,
+      },
+      {
+        id: 'coffeeshop',
+        price: 10000,
+        unlocked: false,
+        upgrade: 'Extra shot of espresso',
+        upgradePrice: 100000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 75,
+        qty: 0,
+      },
+      {
+        id: 'coffee_factory',
+        price: 50000,
+        unlocked: false,
+        upgrade: 'Use freshest beans in existence',
+        upgradePrice: 500000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 100,
+        qty: 0,
+      },
+      {
+        id: 'coffee_fountain',
+        price: 100000,
+        unlocked: false,
+        upgrade: 'Genetically modified coffee beans',
+        upgradePrice: 1000000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 200,
+        qty: 0,
+      },
+      {
+        id: 'coffee_river',
+        price: 500000,
+        unlocked: false,
+        upgrade: 'Genetically modified water',
+        upgradePrice: 5000000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 500,
+        qty: 0,
+      },
+      {
+        id: 'coffee_ocean',
+        price: 1000000,
+        unlocked: false,
+        upgrade: 'Cat included with every purchase',
+        upgradePrice: 10000000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 1000,
+        qty: 0,
+      },
+      {
+        id: 'coffee_planet',
+        price: 5000000,
+        unlocked: false,
+        upgrade: 'Genetically modify everything about our coffee',
+        upgradePrice: 50000000,
+        upgradeUnlock: false,
+        upgradeQty: 0,
+        cps: 2000,
+        qty: 0,
+      },
+    ],
+  };
+}
 
-  // Hide the reset confirmation page initially
-  const resetPage = document.getElementById('reset-confirm');
-  resetPage.style.display = 'none';
+// Hide the reset confirmation page initially
+const resetPage = document.getElementById('reset-confirm');
+resetPage.style.display = 'none';
 
-  // Hide the boosting ui initially
-  const boostUI = document.getElementById('boosting-ui');
-  boostUI.style.display = 'none';
+// Hide the boosting ui initially
+const boostUI = document.getElementById('boosting-ui');
+boostUI.style.display = 'none';
 
-  // Add an event listener to the giant coffee emoji
+// Add an event listener to the giant coffee emoji
 
-  // Event listeners here.
-  const bigCoffee = document.getElementById('big_coffee');
-  bigCoffee.addEventListener('click', () => clickCoffee(data));
+// Event listeners here.
+const bigCoffee = document.getElementById('big_coffee');
+bigCoffee.addEventListener('click', () => clickCoffee(data));
 
-  // Add an event listener to the container that holds all of the producers
-  // Pass in the browser event and our data object to the event listener
-  const producerContainer = document.getElementById('producer_container');
-  producerContainer.addEventListener('click', (event) => {
-    buyButtonClick(event, data);
-  });
+// Add an event listener to the container that holds all of the producers
+// Pass in the browser event and our data object to the event listener
+const producerContainer = document.getElementById('producer_container');
+producerContainer.addEventListener('click', (event) => {
+  buyButtonClick(event, data);
+});
 
-  resetDenyButton.addEventListener('click', returnToGame);
+resetDenyButton.addEventListener('click', returnToGame);
 
-  caffeineBoostButton.addEventListener('click', caffeineBoost);
+caffeineBoostButton.addEventListener('click', caffeineBoost);
 
-  saveGameButton.addEventListener('click', () => {
-    saveGame(data);
-    const saveMessage = document.getElementById('save_message');
+saveGameButton.addEventListener('click', () => {
+  saveGame(data);
+  const saveMessage = document.getElementById('save_message');
+  saveMessage.hidden = !saveMessage.hidden;
+  setTimeout(() => {
     saveMessage.hidden = !saveMessage.hidden;
-    setTimeout(() => {
-      saveMessage.hidden = !saveMessage.hidden;
-    }, 2000);
-  });
-  resetGameButton.addEventListener('click', resetGameConfirmation);
+  }, 2000);
+});
+resetGameButton.addEventListener('click', resetGameConfirmation);
 
-  upgradeClicksButton.addEventListener('click', () => {
-    upgradeClicks(data);
-  });
+upgradeClicksButton.addEventListener('click', () => {
+  upgradeClicks(data);
+});
 
-  resetConfirmButton.addEventListener('click', resetGame);
+resetConfirmButton.addEventListener('click', resetGame);
 
-  // Call the tick function passing in the data object once per second
-  setInterval(() => tick(data), 1000);
-
+// Call the tick function passing in the data object once per second
+setInterval(() => tick(data), 1000);
