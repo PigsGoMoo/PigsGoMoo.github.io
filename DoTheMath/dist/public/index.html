@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Do the Math!</title>
+  </head>
+  <body>
+    <header>
+      <h1>Do the Math!</h1>
+      <h2>Placeholder</h2>
+      <p class="between">(Between ? and ?)</p>
+      <button class="btn again">Again!</button>
+      <button class="btn back">Home</button>
+      <div class="number1">?</div>
+      <button class="number1 btn hidden" id="btn1">Timed</button>
+      <div class="operation">x</div>
+      <button class="operation btn hidden" id="btn2">Rounds</button>
+      <div class="number2">?</div>
+      <button class="number2 btn hidden" id="btn3">Speed</button>
+    </header>
+    <main>
+      <section class="left">
+        <input type="number" class="guess" />
+        <button class="btn check">Skip!</button>
+      </section>
+      <section class="right">
+        <p class="message">Start guessing...</p>
+        <p class="label-score">💯 Score: <span class="score">20</span></p>
+        <p class="label-highscore">
+          🥇 Highscore: <span class="highscore">0</span>
+        </p>
+      </section>
+    </main>
+    <script type="module" src="bundle.js"></script>
+  </body>
+</html>
