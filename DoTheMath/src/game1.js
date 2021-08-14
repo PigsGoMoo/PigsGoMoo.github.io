@@ -225,8 +225,10 @@ export default class Game {
     document.querySelector('h2').innerText = `Round time: 3`;
     document.querySelector('h1').style.top = '30%';
     this.startGame();
-    this.speedModeTimer = setInterval(this.speedModeHelper, 1000);
-    this.setTimer(90);
+    setTimeout(() => {
+      this.speedModeTimer = setInterval(this.speedModeHelper, 1000);
+      this.setTimer(90);
+    }, 3000);
   }
 
   skip() {
