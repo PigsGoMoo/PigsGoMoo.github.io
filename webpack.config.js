@@ -1,6 +1,6 @@
 // 'use strict';
 
-// const path = require('path');
+const path = require('path');
 
 module.exports = {
   mode: 'development',
@@ -12,7 +12,9 @@ module.exports = {
   //   hot: true
   // },
   output: {
-    filename: './DoTheMath/dist/public/bundle.js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: '/public/DoTheMath/',
+    filename: 'bundle.js',
   },
   resolve: {
     extensions: ['.js'],

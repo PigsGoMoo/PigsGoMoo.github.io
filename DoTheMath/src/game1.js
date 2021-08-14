@@ -4,7 +4,7 @@ export default class Game {
     this.high = maxVal > minVal ? maxVal : minVal + 1;
     // The lower limit of multiplication
     // Cannot be less than 0
-    this.low = minVal > 0 ? 1 : minVal;
+    this.low = minVal >= 0 ? 1 : minVal;
     // Number of rounds - also cannot be <= 0
     this.rounds = rounds <= 0 ? 1 : rounds;
 
@@ -58,7 +58,7 @@ export default class Game {
     // If less than total rounds
     if (this.gameState && this.currRound <= this.rounds) {
       if (this.mode === 'speed') {
-        this.speedTimer = 3;
+        this.speedTimer = 5;
         document.querySelector(
           'h2'
         ).innerText = `Round time: ${this.speedTimer}`;
@@ -68,9 +68,9 @@ export default class Game {
         ).innerText = `Current round: ${this.currRound}`;
       }
       this.firstNum =
-        Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
+        Math.floor(Math.random() * (this.high - this.low)) + this.low;
       this.secondNum =
-        Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
+        Math.floor(Math.random() * (this.high - this.low)) + this.low;
       while (
         this.seen[this.firstNum] &&
         this.seen[this.firstNum][this.secondNum]
@@ -79,9 +79,9 @@ export default class Game {
           `${this.firstNum} and ${this.secondNum} already asked. Rerolling values`
         );
         this.firstNum =
-          Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
+          Math.floor(Math.random() * (this.high - this.low)) + this.low;
         this.secondNum =
-          Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
+          Math.floor(Math.random() * (this.high - this.low)) + this.low;
       }
       if (!this.seen[this.firstNum]) {
         this.seen[this.firstNum] = { [this.secondNum]: true };
@@ -222,7 +222,7 @@ export default class Game {
 
   speedMode() {
     document.querySelector('h2').style.display = 'block';
-    document.querySelector('h2').innerText = `Round time: 3`;
+    document.querySelector('h2').innerText = `Round time: 5`;
     document.querySelector('h1').style.top = '30%';
     this.startGame();
     setTimeout(() => {
