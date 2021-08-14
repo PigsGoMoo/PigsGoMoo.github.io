@@ -12,8 +12,8 @@ module.exports = {
   //   hot: true
   // },
   output: {
-    path: path.resolve(__dirname, 'public'),
-    publicPath: '/public/DoTheMath/',
+    path: path.resolve(__dirname, 'DoTheMath', 'public'),
+    publicPath: '/public/',
     filename: 'bundle.js',
   },
   resolve: {
