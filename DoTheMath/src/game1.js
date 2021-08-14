@@ -75,9 +75,9 @@ export default class Game {
         this.seen[this.firstNum] &&
         this.seen[this.firstNum][this.secondNum]
       ) {
-        console.log(
-          `${this.firstNum} and ${this.secondNum} already asked. Rerolling values`
-        );
+        // console.log(
+        //   `${this.firstNum} and ${this.secondNum} already asked. Rerolling values`
+        // );
         this.firstNum =
           Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
         this.secondNum =
@@ -88,7 +88,7 @@ export default class Game {
       } else {
         this.seen[this.firstNum][this.secondNum] = true;
       }
-      console.log(`Seen values: ${JSON.stringify(this.seen)}`);
+      // console.log(`Seen values: ${JSON.stringify(this.seen)}`);
       this.ans = this.firstNum * this.secondNum;
 
       this.displayMessage('Start guessing...');
@@ -105,16 +105,16 @@ export default class Game {
   }
 
   startGame() {
-    console.log(
-      `Starting game with upper limit of ${this.high} and lower limit of ${this.low}. ${this.rounds} rounds`
-    );
+    // console.log(
+    //   `Starting game with upper limit of ${this.high} and lower limit of ${this.low}. ${this.rounds} rounds`
+    // );
     this.startTime = 3;
     document.querySelector(
       'h1'
     ).innerText = `Game starts in: ${this.startTime}. . .`;
     this.startTimer = setInterval(this.tickTimer, 1000);
     setTimeout(() => {
-      console.log(`Game started`);
+      // console.log(`Game started`);
       this.gameState = true;
       this.startRound();
     }, 3000);
@@ -122,7 +122,7 @@ export default class Game {
 
   tickTimer() {
     this.startTime--;
-    console.log(`Starting in...${this.startTime}`);
+    // console.log(`Starting in...${this.startTime}`);
     document.querySelector(
       'h1'
     ).innerText = `Game starts in: ${this.startTime}. . .`;
@@ -196,11 +196,11 @@ export default class Game {
   }
 
   timerTick(timer) {
-    console.log(`tick`);
+    // console.log(`tick`);
     this.timer--;
     document.querySelector('h1').innerText = `Time remaining: ${this.timer}`;
     if (this.timer <= 0) {
-      console.log(`Time over`);
+      // console.log(`Time over`);
       this.endGame();
       this.stopTimer(timer);
       this.timerActive = false;

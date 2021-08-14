@@ -43,7 +43,7 @@ function addListeners(game) {
         document.querySelector('.guess').value = '';
         game.makeGuess(guess);
       } else if (event.key === 'Enter' && !game.gameState) {
-        console.log(`Game over in index.js showing`);
+        // console.log(`Game over in index.js showing`);
         game.displayMessage(`The game hasn't started yet!`);
         // setTimeout(game.endGame, 2000);
       }
@@ -67,7 +67,7 @@ function removeListeners(game) {
         document.querySelector('.guess').value = '';
         game.makeGuess(guess);
       } else if (event.key === 'Enter' && !game.gameState) {
-        console.log(`Removed EL`);
+        // console.log(`Removed EL`);
         game.displayMessage(`The game is already over!`);
         setTimeout(game.endGame, 2000);
       }
@@ -102,7 +102,7 @@ function grabLowerValue() {
   //     }
   //   });
   lower = Number(document.querySelector('.guess').value);
-  console.log(`Setting lower limit to ${lower}`);
+  // console.log(`Setting lower limit to ${lower}`);
   document.querySelector('.guess').value = '';
   document.querySelector(
     '.between'
@@ -135,7 +135,7 @@ function grabLowerValue() {
 
 function grabUpperValue() {
   upper = Number(document.querySelector('.guess').value);
-  console.log(`Setting upper limit to ${upper}`);
+  // console.log(`Setting upper limit to ${upper}`);
   document.querySelector('.guess').value = '';
   document.querySelector('.check').removeEventListener('click', grabUpperValue);
   // document
