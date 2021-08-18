@@ -73,23 +73,7 @@ export default class Game {
         Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
       this.secondNum =
         Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
-      while (
-        this.seen[this.firstNum] &&
-        this.seen[this.firstNum][this.secondNum]
-      ) {
-        // console.log(
-        //   `${this.firstNum} and ${this.secondNum} already asked. Rerolling values`
-        // );
-        this.firstNum =
-          Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
-        this.secondNum =
-          Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
-      }
-      if (!this.seen[this.firstNum]) {
-        this.seen[this.firstNum] = { [this.secondNum]: true };
-      } else {
-        this.seen[this.firstNum][this.secondNum] = true;
-      }
+
       // console.log(`Seen values: ${JSON.stringify(this.seen)}`);
       this.ans = this.findAnswer();
 
@@ -109,10 +93,34 @@ export default class Game {
   findAnswer() {
     const oper = Math.floor(Math.random() * this.operations.length);
     // console.log(`oper: ${this.operations[oper]}`);
+    const op = this.operations[oper];
+
+    while (
+      this.seen[this.firstNum] &&
+      this.seen[this.firstNum][this.secondNum] &&
+      this.seen[this.firstNum][this.secondNum].includes(op)
+    ) {
+      // console.log(
+      //   `${this.firstNum} and ${this.secondNum} already asked. Rerolling values`
+      // );
+      this.firstNum =
+        Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
+      this.secondNum =
+        Math.floor(Math.random() * (this.high - this.low + 1)) + this.low;
+    }
+    if (
+      !this.seen[this.firstNum] ||
+      !this.seen[this.firstNum][this.secondNum]
+    ) {
+      this.seen[this.firstNum] = { [this.secondNum]: [op] };
+    } else {
+      this.seen[this.firstNum][this.secondNum].push(op);
+    }
+    console.log(this.seen);
 
     const opBox = document.querySelector('.operation');
 
-    switch (this.operations[oper]) {
+    switch (op) {
       case '+': {
         opBox.innerText = '+';
         return this.firstNum + this.secondNum;
@@ -160,6 +168,7 @@ export default class Game {
       this.stopTimer(this.startTimer);
     }
   }
+
   endGame() {
     this.gameState = false;
     const percent = (100 - (this.wrong / this.guesses) * 100).toFixed(2);

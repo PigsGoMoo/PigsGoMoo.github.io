@@ -1,8 +1,5 @@
 import Game from './game1';
 
-//BUG: Fix game over bug
-// TODO: Add countdown before start timer
-
 const num1 = document.querySelector('.number1');
 const oper = document.querySelector('.operation');
 const num2 = document.querySelector('.number2');
@@ -81,6 +78,10 @@ function goHome(game) {
     game.endGame();
     document.querySelector('h1').innerText = 'Choose your game mode';
   }
+  btn1.innerText = 'Timed';
+  btn2.innerText = 'Rounds';
+  btn3.innerText = 'Speed';
+  addBtnListeners();
   document.querySelector('h2').style.display = 'none';
   document.querySelector('h1').style.top = '45%';
   document.querySelector('.number1').textContent = '?';
@@ -172,17 +173,22 @@ function chooseOperations() {
 function confirmOperations() {
   hideButtons();
 
+  btn1.removeEventListener('click', btn1Select);
+  btn2.removeEventListener('click', btn2Select);
+  btn3.removeEventListener('click', btn3Select);
+
   document
     .querySelector('.check')
     .removeEventListener('click', confirmOperations);
 
   const buttons = document.querySelectorAll('.selected');
   const oper = [];
-  buttons.forEach((op, idx) => {
+  buttons.forEach((op) => {
     // console.log(op.innerText);
     oper.push(op.innerText);
+    op.classList.remove('selected');
   });
-  console.log(oper);
+  // console.log(oper);
   // If button 1 - timed mode
   if (mode === 'timed') {
     game1 = new Game(upper, lower);
@@ -245,6 +251,12 @@ function removeBtnListeners() {
   btn1.removeEventListener('click', btn1Handle);
   btn2.removeEventListener('click', btn2Handle);
   btn3.removeEventListener('click', btn3Handle);
+}
+
+function addBtnListeners() {
+  btn1.addEventListener('click', btn1Handle);
+  btn2.addEventListener('click', btn2Handle);
+  btn3.addEventListener('click', btn3Handle);
 }
 
 document.querySelector('h1').innerText = `Choose your game mode`;
