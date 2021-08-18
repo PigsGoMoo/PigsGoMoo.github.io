@@ -108,7 +108,7 @@ export default class Game {
 
   findAnswer() {
     const oper = Math.floor(Math.random() * this.operations.length);
-    console.log(`oper: ${this.operations[oper]}`);
+    // console.log(`oper: ${this.operations[oper]}`);
 
     const opBox = document.querySelector('.operation');
 
@@ -134,10 +134,10 @@ export default class Game {
   }
 
   startGame() {
-    console.log(
-      `Starting game with upper limit of ${this.high} and lower limit of ${this.low}. ${this.rounds} rounds\nAvailable operations:`
-    );
-    console.log(this.operations);
+    // console.log(
+    //   `Starting game with upper limit of ${this.high} and lower limit of ${this.low}. ${this.rounds} rounds\nAvailable operations:`
+    // );
+    // console.log(this.operations);
     this.startTime = 3;
     document.querySelector(
       'h1'
