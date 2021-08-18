@@ -7,6 +7,8 @@ export default class Game {
     this.low = minVal >= 0 ? minVal : 1;
     // Number of rounds - also cannot be <= 0
     this.rounds = rounds <= 0 ? 1 : rounds;
+    // The operations to use
+    this.operations = [];
 
     // To keep track of game mode for restart purposes
     this.mode = '';
@@ -89,7 +91,7 @@ export default class Game {
         this.seen[this.firstNum][this.secondNum] = true;
       }
       // console.log(`Seen values: ${JSON.stringify(this.seen)}`);
-      this.ans = this.firstNum * this.secondNum;
+      this.ans = this.findAnswer();
 
       this.displayMessage('Start guessing...');
       document.querySelector('.score').textContent = this.score;
@@ -104,10 +106,38 @@ export default class Game {
     }
   }
 
+  findAnswer() {
+    const oper = Math.floor(Math.random() * this.operations.length);
+    console.log(`oper: ${this.operations[oper]}`);
+
+    const opBox = document.querySelector('.operation');
+
+    switch (this.operations[oper]) {
+      case '+': {
+        opBox.innerText = '+';
+        return this.firstNum + this.secondNum;
+      }
+      case '-': {
+        opBox.innerText = '-';
+        return this.firstNum - this.secondNum;
+      }
+      case 'x': {
+        opBox.innerText = 'x';
+        return this.firstNum * this.secondNum;
+      }
+      default: {
+        console.log(`Operation not found`);
+        opBox.innerText = 'x';
+        return this.firstNum * this.secondNum;
+      }
+    }
+  }
+
   startGame() {
-    // console.log(
-    //   `Starting game with upper limit of ${this.high} and lower limit of ${this.low}. ${this.rounds} rounds`
-    // );
+    console.log(
+      `Starting game with upper limit of ${this.high} and lower limit of ${this.low}. ${this.rounds} rounds\nAvailable operations:`
+    );
+    console.log(this.operations);
     this.startTime = 3;
     document.querySelector(
       'h1'

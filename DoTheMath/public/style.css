@@ -164,3 +164,7 @@ h2 {
 .label-score {
   margin-bottom: 2rem;
 }
+
+.selected {
+  background-color: green;
+}

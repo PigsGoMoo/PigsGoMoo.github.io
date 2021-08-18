@@ -108,29 +108,7 @@ function grabLowerValue() {
     '.between'
   ).innerText = `(Between ${lower} and ${upper})`;
 
-  // If button 1 - timed mode
-  if (mode === 'timed') {
-    game1 = new Game(upper, lower);
-    game1.mode = mode;
-    game1.startGame();
-    setTimeout(() => {
-      game1.setTimer(60);
-    }, 3000);
-
-    // If button 2 - Round mode
-  } else if (mode === 'rounds') {
-    game1 = new Game(upper, lower, 25);
-    document.querySelector('h1').innerText = `Do the Math!`;
-    game1.mode = mode;
-    game1.startGame();
-    // else button 3 - speed mode
-  } else {
-    game1 = new Game(upper, lower);
-    game1.mode = mode;
-    game1.speedMode();
-  }
-
-  addListeners(game1);
+  chooseOperations();
 }
 
 function grabUpperValue() {
@@ -174,23 +152,106 @@ function chooseLimit() {
   //   });
 }
 
-document.querySelector('h1').innerText = `Choose your game mode`;
-displayButtons();
+function chooseOperations() {
+  displayButtons();
+  removeBtnListeners();
 
-btn1.addEventListener('click', () => {
+  document.querySelector('h1').innerText =
+    'Which operations do you want to do? Click Skip to confirm';
+  btn1.innerText = 'x';
+  btn2.innerText = '+';
+  btn3.innerText = '-';
+
+  btn1.addEventListener('click', btn1Select);
+  btn2.addEventListener('click', btn2Select);
+  btn3.addEventListener('click', btn3Select);
+
+  document.querySelector('.check').addEventListener('click', confirmOperations);
+}
+
+function confirmOperations() {
+  hideButtons();
+
+  document
+    .querySelector('.check')
+    .removeEventListener('click', confirmOperations);
+
+  const buttons = document.querySelectorAll('.selected');
+  const oper = [];
+  buttons.forEach((op, idx) => {
+    // console.log(op.innerText);
+    oper.push(op.innerText);
+  });
+  console.log(oper);
+  // If button 1 - timed mode
+  if (mode === 'timed') {
+    game1 = new Game(upper, lower);
+    game1.mode = mode;
+    game1.operations = game1.operations.concat(oper);
+    game1.startGame();
+    setTimeout(() => {
+      game1.setTimer(60);
+    }, 3000);
+
+    // If button 2 - Round mode
+  } else if (mode === 'rounds') {
+    game1 = new Game(upper, lower, 25);
+    document.querySelector('h1').innerText = `Do the Math!`;
+    game1.mode = mode;
+    game1.operations = game1.operations.concat(oper);
+    game1.startGame();
+    // else button 3 - speed mode
+  } else {
+    game1 = new Game(upper, lower);
+    game1.mode = mode;
+    game1.operations = game1.operations.concat(oper);
+    game1.speedMode();
+  }
+
+  addListeners(game1);
+}
+
+function btn1Select() {
+  btn1.classList.toggle('selected');
+}
+
+function btn2Select() {
+  btn2.classList.toggle('selected');
+}
+
+function btn3Select() {
+  btn3.classList.toggle('selected');
+}
+
+function btn1Handle() {
   hideButtons();
   chooseLimit();
   mode = 'timed';
-});
+}
 
-btn2.addEventListener('click', () => {
+function btn2Handle() {
   hideButtons();
   chooseLimit();
   mode = 'rounds';
-});
+}
 
-btn3.addEventListener('click', () => {
+function btn3Handle() {
   hideButtons();
   chooseLimit();
   mode = 'speed';
-});
+}
+
+function removeBtnListeners() {
+  btn1.removeEventListener('click', btn1Handle);
+  btn2.removeEventListener('click', btn2Handle);
+  btn3.removeEventListener('click', btn3Handle);
+}
+
+document.querySelector('h1').innerText = `Choose your game mode`;
+displayButtons();
+
+btn1.addEventListener('click', btn1Handle);
+
+btn2.addEventListener('click', btn2Handle);
+
+btn3.addEventListener('click', btn3Handle);
