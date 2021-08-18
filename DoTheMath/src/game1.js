@@ -151,7 +151,7 @@ export default class Game {
     // console.log(guess, typeof guess);
 
     // When there is no input
-    if (!guess) {
+    if (!guess && guess !== 0) {
       // document.querySelector('.message').textContent = '⛔️ No number!';
       this.displayMessage('⛔️ No number!');
 
