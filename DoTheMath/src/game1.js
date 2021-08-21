@@ -127,6 +127,11 @@ export default class Game {
       }
       case '-': {
         opBox.innerText = '-';
+        if (this.firstNum < this.secondNum) {
+          const temp = this.secondNum;
+          this.secondNum = this.firstNum;
+          this.firstNum = temp;
+        }
         return this.firstNum - this.secondNum;
       }
       case 'x': {
