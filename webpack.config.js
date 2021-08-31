@@ -4,7 +4,10 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './DoTheMath/src/index.js',
+  entry: {
+    DoTheMath: './DoTheMath/src/index.js',
+    PoeHideoutCalc: './PoeHideoutCalc/src/index.js',
+  },
 
   // devServer: {
   //   contentBase: './public',
@@ -12,9 +15,9 @@ module.exports = {
   //   hot: true
   // },
   output: {
-    path: path.resolve(__dirname, 'DoTheMath', 'public'),
+    path: path.resolve(__dirname, 'scripts'),
     publicPath: '/public/',
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
   resolve: {
     extensions: ['.js'],
@@ -27,11 +30,16 @@ module.exports = {
       {
         test: /\.js$/,
         include: '/src',
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /PoeHideoutCalc/],
       },
       {
         test: [/\.vert$/, /\.frag$/],
         use: 'raw-loader',
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: [/node_modules/, /DoTheMath/],
+        use: 'babel-loader',
       },
     ],
   },
