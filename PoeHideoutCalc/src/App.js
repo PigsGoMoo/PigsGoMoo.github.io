@@ -39,10 +39,13 @@ export default class App extends React.Component {
 
   render() {
     return this.state.hideoutData ? (
-      <Calc
-        hideoutData={this.state.hideoutData}
-        decorData={this.state.decorData}
-      />
+      <div id='outer-container'>
+        <div className='info'>Upload another</div>
+        <Calc
+          hideoutData={this.state.hideoutData}
+          decorData={this.state.decorData}
+        />
+      </div>
     ) : (
       <form onSubmit={this.onFileUpload}>
         <div className='formDiv'>

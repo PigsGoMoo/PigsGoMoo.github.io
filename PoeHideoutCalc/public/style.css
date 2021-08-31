@@ -5,3 +5,38 @@
 .green {
   background-color: green;
 }
+
+.right-text {
+  text-align: right;
+}
+
+.info {
+  text-align: left;
+  margin-bottom: 50px;
+  margin-top: 30px;
+}
+
+#outer-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+th {
+  border-bottom: solid 3px red;
+  background: aliceblue;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+}
+
+table {
+  border: solid 1px blue;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+td {
+  padding: 10px;
+  border: solid 1px gray;
+}

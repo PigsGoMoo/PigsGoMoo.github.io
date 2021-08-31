@@ -9,6 +9,15 @@ function Calc(props) {
   const [filesProcessed, setProcess] = useState(0);
   const hideoutData = new FileReader();
   const decorData = new FileReader();
+  let overallCost = 0;
+  let remainingCost = 0;
+  let totalDoodads = 0;
+  let remainingDoodads = 0;
+  let zanaLv = 0;
+  let einharLv = 0;
+  let alvaLv = 0;
+  let nikoLv = 0;
+  let junLv = 0;
 
   useEffect(() => {
     hideoutData.readAsText(props.hideoutData);
@@ -132,36 +141,87 @@ function Calc(props) {
     parseFile(decorData.result, setDecorList);
   };
 
+  const doodadArr = [];
+
+  if (filesProcessed == 2) {
+    doodads.forEach((item) => {
+      const doodadName = item;
+      const decorSeller = data[item] ? data[item]['Master'] : 'Unknown';
+      const decorSellerLv = parseInt(data[item] ? data[item]['Level'] : 0);
+      const decorCost = parseInt(data[item] ? data[item]['Cost'] : 0);
+      const doodadCount = parseInt(
+        decorList[item] ? decorList[item]['count'] : 0
+      );
+      const doodadReq = parseInt(hideoutInfo[item]['count']);
+      const doodadRemain = parseInt(doodadReq - doodadCount);
+      const costRemain = parseInt(doodadRemain * decorCost);
+      const costTotal = parseInt(doodadReq * decorCost);
+      overallCost += costTotal;
+      totalDoodads += doodadReq;
+      remainingCost += costRemain;
+      remainingDoodads += doodadRemain;
+
+      switch (decorSeller) {
+        case 'Zana':
+          zanaLv = Math.max(zanaLv, decorSellerLv);
+          break;
+        case 'Alva':
+          alvaLv = Math.max(alvaLv, decorSellerLv);
+          break;
+        case 'Jun':
+          junLv = Math.max(junLv, decorSellerLv);
+          break;
+        case 'Niko':
+          nikoLv = Math.max(nikoLv, decorSellerLv);
+          break;
+        case 'Einhar':
+          einharLv = Math.max(einharLv, decorSellerLv);
+          break;
+        default:
+          break;
+      }
+
+      const doodadObj = {
+        doodadName,
+        decorSeller,
+        decorSellerLv,
+        decorCost,
+        doodadCount,
+        doodadReq,
+        doodadRemain,
+        costRemain,
+        costTotal,
+      };
+
+      doodadArr.push(doodadObj);
+    });
+  }
+
   return filesProcessed === 2 ? (
-    <div id='table-container'>
-      <table>
-        <thead>
-          <tr>
-            <th className='table-name header'>Doodad Name</th>
-            <th className='table-seller header'>Seller</th>
-            <th className='table-level header'>Req Level</th>
-            <th className='table-cost header'>Cost</th>
-            <th className='table-have header'>Have</th>
-            <th className='table-need header'>Need</th>
-            <th className='table-remain header'>Remaining</th>
-            <th className='table-cost-remain header'>Remaining Cost</th>
-            <th className='table-cost-total header'>Total Cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          {doodads.map((item) => (
-            <Doodad
-              key={hideoutInfo[item]['hash']}
-              doodadName={item}
-              doodadReq={hideoutInfo[item]['count']}
-              doodadCount={decorList[item] ? decorList[item]['count'] : 0}
-              decorSeller={data[item] ? data[item]['Master'] : 'Unknown'}
-              decorSellerLv={data[item] ? data[item]['Level'] : '0'}
-              decorCost={data[item] ? data[item]['Cost'] : '0'}
-            />
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <div className='info'>
+        Required Favor left: {remainingCost}
+        <br />
+        Total Favor for all items: {overallCost}
+        <br />
+        Number of items remaining: {remainingDoodads}
+        <br />
+        Total number of items: {totalDoodads}
+        <br />
+        Zana Level: {zanaLv}
+        <br />
+        Einhar Level: {einharLv}
+        <br />
+        Niko Level: {nikoLv}
+        <br />
+        Alva Level: {alvaLv}
+        <br />
+        Jun Level: {junLv}
+        <br />
+      </div>
+      <div id='table-container'>
+        <Doodad doodadArr={doodadArr} />
+      </div>
     </div>
   ) : (
     <div>Processing files...</div>
