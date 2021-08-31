@@ -26,9 +26,6 @@ export default class App extends React.Component {
     if (!this.state.hideoutFile || !this.state.decorList) {
       console.log(`Please upload both files`);
     } else {
-      console.log(`Both files uploaded.`);
-      console.log(this.state.decorList);
-      console.log(this.state.hideoutFile);
       this.setState((state) => {
         return {
           hideoutData: state.hideoutFile,

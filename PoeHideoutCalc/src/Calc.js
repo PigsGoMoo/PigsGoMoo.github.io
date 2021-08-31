@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Doodad from './Doodad';
+import data from './hideoutData.json';
 
 function Calc(props) {
   const [hideoutInfo, setHideoutInfo] = useState();
@@ -10,19 +11,9 @@ function Calc(props) {
   const decorData = new FileReader();
 
   useEffect(() => {
-    console.log(`Reading hideout data`);
     hideoutData.readAsText(props.hideoutData);
-    console.log(`Reading decor data`);
     decorData.readAsText(props.decorData);
   }, [props.hideoutData, props.decorData]);
-
-  console.log(`Hideout data: `);
-  console.log(hideoutInfo);
-  console.log(`Decor data: `);
-  console.log(decorList);
-  console.log(`Array of doodads`);
-  console.log(doodads);
-  console.log(`Files processed: ${filesProcessed}`);
 
   function parseFile(file, setState) {
     // So there are two different formats for the .hideout file
@@ -142,18 +133,38 @@ function Calc(props) {
   };
 
   return filesProcessed === 2 ? (
-    <ul>
-      {doodads.map((item) => (
-        <Doodad
-          key={hideoutInfo[item]['hash']}
-          doodadName={item}
-          doodadReq={hideoutInfo[item]['count']}
-          doodadCount={decorList[item] ? decorList[item]['count'] : 0}
-        />
-      ))}
-    </ul>
+    <div id='table-container'>
+      <table>
+        <thead>
+          <tr>
+            <th className='table-name header'>Doodad Name</th>
+            <th className='table-seller header'>Seller</th>
+            <th className='table-level header'>Req Level</th>
+            <th className='table-cost header'>Cost</th>
+            <th className='table-have header'>Have</th>
+            <th className='table-need header'>Need</th>
+            <th className='table-remain header'>Remaining</th>
+            <th className='table-cost-remain header'>Remaining Cost</th>
+            <th className='table-cost-total header'>Total Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          {doodads.map((item) => (
+            <Doodad
+              key={hideoutInfo[item]['hash']}
+              doodadName={item}
+              doodadReq={hideoutInfo[item]['count']}
+              doodadCount={decorList[item] ? decorList[item]['count'] : 0}
+              decorSeller={data[item] ? data[item]['Master'] : 'Unknown'}
+              decorSellerLv={data[item] ? data[item]['Level'] : '0'}
+              decorCost={data[item] ? data[item]['Cost'] : '0'}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   ) : (
-    <div>This works</div>
+    <div>Processing files...</div>
   );
 }
 
