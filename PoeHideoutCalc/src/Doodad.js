@@ -68,7 +68,7 @@ function Doodad({ doodadArr }) {
           prepareRow(row);
           return (
             <tr
-              className={row.values.doodadRemain === 0 ? 'green' : ''}
+              className={row.values.doodadRemain === 0 ? 'green' : 'red'}
               {...row.getRowProps()}
             >
               {row.cells.map((cell) => {

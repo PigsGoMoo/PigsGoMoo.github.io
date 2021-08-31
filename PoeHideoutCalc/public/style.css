@@ -1,9 +1,18 @@
+body {
+  background-color: black;
+  color: aqua;
+}
+
 .formDiv {
   margin-bottom: 50px;
 }
 
 .green {
   background-color: green;
+}
+
+.red {
+  background-color: orangered;
 }
 
 .right-text {
@@ -24,7 +33,7 @@
 
 th {
   border-bottom: solid 3px red;
-  background: aliceblue;
+  background: rgb(59, 132, 196);
   color: black;
   font-weight: bold;
   padding: 10px;

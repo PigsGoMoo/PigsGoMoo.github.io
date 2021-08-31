@@ -12,6 +12,16 @@ export default class App extends React.Component {
     };
     this.onFileChange = this.onFileChange.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset() {
+    this.setState({
+      hideoutData: null,
+      decorData: null,
+      hideoutFile: null,
+      decorList: null,
+    });
   }
 
   onFileChange(evt) {
@@ -40,7 +50,7 @@ export default class App extends React.Component {
   render() {
     return this.state.hideoutData ? (
       <div id='outer-container'>
-        <div className='info'>Upload another</div>
+        <button onClick={this.reset}>Upload another</button>
         <Calc
           hideoutData={this.state.hideoutData}
           decorData={this.state.decorData}
