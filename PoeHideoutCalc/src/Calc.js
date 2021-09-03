@@ -13,6 +13,8 @@ function Calc(props) {
   let remainingCost = 0;
   let totalDoodads = 0;
   let remainingDoodads = 0;
+  let uniqueRemaining = 0;
+  let uniqueTotal = 0;
   let zanaLv = 0;
   let einharLv = 0;
   let alvaLv = 0;
@@ -144,6 +146,7 @@ function Calc(props) {
   const doodadArr = [];
 
   if (filesProcessed == 2) {
+    uniqueTotal = doodads.length;
     doodads.forEach((item) => {
       const doodadName = item;
       const decorSeller = data[item] ? data[item]['Master'] : 'Unknown';
@@ -160,6 +163,7 @@ function Calc(props) {
       totalDoodads += doodadReq;
       remainingCost += costRemain;
       remainingDoodads += doodadRemain;
+      uniqueRemaining += doodadRemain > 0 ? 1 : 0;
 
       switch (decorSeller) {
         case 'Zana':
@@ -207,6 +211,10 @@ function Calc(props) {
         Number of items remaining: {remainingDoodads}
         <br />
         Total number of items: {totalDoodads}
+        <br />
+        Number of unique items remaining: {uniqueRemaining}
+        <br />
+        Total number of unique items: {uniqueTotal}
         <br />
         Zana Level: {zanaLv}
         <br />
