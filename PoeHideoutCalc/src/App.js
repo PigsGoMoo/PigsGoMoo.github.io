@@ -80,7 +80,7 @@ export default class App extends React.Component {
         <div>
           <button onClick={this.reset}>Upload another</button>
         </div>
-        <div class='separator'>
+        <div className='separator'>
           <form onSubmit={this.update}>
             <label htmlFor='decorUpdate'>Update your decor list:</label>
             <input
