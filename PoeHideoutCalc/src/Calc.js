@@ -156,8 +156,14 @@ function Calc(props) {
         decorList[item] ? decorList[item]['count'] : 0
       );
       const doodadReq = parseInt(hideoutInfo[item]['count']);
-      const doodadRemain = parseInt(doodadReq - doodadCount);
-      const costRemain = parseInt(doodadRemain * decorCost);
+      const doodadRemain =
+        parseInt(doodadReq - doodadCount) < 0
+          ? 0
+          : parseInt(doodadReq - doodadCount);
+      const costRemain =
+        parseInt(doodadRemain * decorCost) < 0
+          ? 0
+          : parseInt(doodadRemain * decorCost);
       const costTotal = parseInt(doodadReq * decorCost);
       overallCost += costTotal;
       totalDoodads += doodadReq;

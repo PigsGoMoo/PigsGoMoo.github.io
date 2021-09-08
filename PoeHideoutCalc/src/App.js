@@ -13,6 +13,33 @@ export default class App extends React.Component {
     this.onFileChange = this.onFileChange.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
     this.reset = this.reset.bind(this);
+    this.update = this.update.bind(this);
+  }
+
+  update() {
+    // reset the state first, then put back hideoutData and new decorData
+    // in two steps instead of just one
+    this.setState(
+      (state) => {
+        return {
+          hideoutData: null,
+          decorData: null,
+          hideoutFile: state.hideoutData,
+          decorList: null,
+        };
+      },
+      () => {
+        this.setState((state) => {
+          // new state
+          return {
+            hideoutData: state.hideoutFile,
+            decorData: state.decorUpdate,
+            hideoutFile: null,
+            decorUpdate: null,
+          };
+        });
+      }
+    );
   }
 
   reset() {
@@ -50,7 +77,21 @@ export default class App extends React.Component {
   render() {
     return this.state.hideoutData ? (
       <div id='outer-container'>
-        <button onClick={this.reset}>Upload another</button>
+        <div>
+          <button onClick={this.reset}>Upload another</button>
+        </div>
+        <div>
+          <form onSubmit={this.update}>
+            <label htmlFor='decorUpdate'>Update your decor list:</label>
+            <input
+              type='file'
+              id='decorUpdate'
+              name='filename'
+              onChange={this.onFileChange}
+            />
+            <input type='submit' />
+          </form>
+        </div>
         <Calc
           hideoutData={this.state.hideoutData}
           decorData={this.state.decorData}
